@@ -237,3 +237,86 @@
 3. 创建Controllers文件夹，右键点击，选择添加选择控制器，选择MVC-空
 
 4. AddMvcCore只包含了 核心的MVC功能。AddMvc包含了依赖于MvcCore 以及相关的第三方常用的服务和方法
+
+# 2021-03-19
+
+## Model
+
+* 在Model文件夹内，创建相关的Model类
+    * 添加相关数据属性    
+        * '///'添加说明
+        * prop 两次tab件快速添加属性
+
+* 在Model文件夹内，创建相关Model类的数据接口
+
+* 在Startup.cs文件中的ConfigureServices服务中，绑定接口与数据源,此方法为**依赖注入**
+    * `services.AddSingleton<a, b>();`,b为数据源，a为接口,b服务依赖于a服务
+    ```
+        eg:
+        public void ConfigureServices(IServiceCollection services)
+        {
+            //添加MVC服务
+            services.AddMvc();
+
+            services.AddSingleton<IStudentRepository, MockStudentRepository>();
+           
+        }
+    ```
+
+* 在Controller中，调用Model数据接口,获取数据
+    * 使用构造函数注入的方式注入接口
+        ```
+            eg:
+                private readonly IStudentRepository _studentRepository;
+                //使用构造函数注入的方式注入IStudentRepository
+                public HomeController(IStudentRepository studentsRepository)
+                {
+                    _studentRepository = studentsRepository;
+                }
+                //public string Index()
+                //{
+                //    return "Hello MVC";
+                //}
+
+                public string Index() 
+                {
+                    return _studentRepository.GetStudents(1).Name;
+                    //return Json(new { id = "1", name = "张三" });
+                }
+        ```
+
+* First:返回序列中的第一个元素。 FirstOrDefault:返回序列中的第一个元素；如果序列中不包含任何元素，则返回默认值.
+```
+    eg:
+        private List<Students> _studentList;
+
+        public MockStudentRepository()
+        {
+            _studentList = new List<Students>()
+            { 
+                new Students(){ Id = 1, Name = "小明", ClassName = "一年级",Emaill = "2821@qq.com"},
+                new Students(){ Id = 2, Name = "小红", ClassName = "一年级",Emaill = "2822@qq.com"},
+                new Students(){ Id = 3, Name = "小强", ClassName = "二年级",Emaill = "2823@qq.com"},
+                new Students(){ Id = 4, Name = "小李", ClassName = "三年级",Emaill = "2824@qq.com"},
+                new Students(){ Id = 5, Name = "小狗", ClassName = "四年级",Emaill = "2825@qq.com"},
+            
+            };
+        }
+
+
+
+        public Students GetStudents(int id) 
+        {
+            return _studentList.FirstOrDefault(a => a.Id == id);
+        }
+
+```
+## 依赖注入
+* ASP.NET Core 依赖注入容器注册服务
+    * AddSingleton()
+    * AddTransient()
+    * AddScoped()
+
+* 依赖注入的亮点
+    * 低耦合
+    * 提供了高测试性，使单元测试更加容易
