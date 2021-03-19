@@ -236,6 +236,6 @@
 ```
 3. 创建Controllers文件夹，右键点击，选择添加选择控制器，选择MVC-空
 
-4. AddMvcCore只包含了 核心的MVC功能。AddMvc包含了依赖于MvcCore 以及相关的第三方常用的服务和方法4. AddMvcCore只包含了 核心的MVC功能。AddMvc包含了依赖于MvcCore 以及相关的第三方常用的服务和方法
+4. AddMvcCore只包含了 核心的MVC功能。AddMvc包含了依赖于MvcCore 以及相关的第三方常用的服务和方法
 
 # 测试啊啊啊啊
