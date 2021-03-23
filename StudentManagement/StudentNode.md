@@ -321,3 +321,22 @@
     * 低耦合
     * 提供了高测试性，使单元测试更加容易
 
+# 2021-03-22
+
+## MVC中的Controlle
+* 当浏览器的请求到达我们的应用程序时，作为MVC设计模式中的控制器，他处理传入http请求并响应用户操作。
+
+* 控制器构建模型（Model）
+
+* 如果我们正在构建API,则将模型数据返回给调用方
+
+* 或者选择 "View 视图" 并将模型数据传递到视图，然后视图生成所需的HTML来显示数据。
+
+* 需要返回xml格式数据，需要在Startup.cs服务中，使用 ` services.AddSingleton<IStudentRepository, MockStudentRepository>(); `
+
+## MVC中的View
+* 视图文件具有.cshtml的扩展名
+
+* 视图文件是带有嵌入Razor标记的HTML模板。
+
+* 可通过右键点击视图方法，选择添加视图，创建视图模型

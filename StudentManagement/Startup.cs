@@ -27,7 +27,9 @@ namespace StudentManagement
         public void ConfigureServices(IServiceCollection services)
         {
             //添加MVC服务
-            services.AddMvc();
+            //services.AddMvc();
+            //需要返回xml的格式需要添加服务
+            services.AddMvc().AddXmlSerializerFormatters();
 
             services.AddSingleton<IStudentRepository, MockStudentRepository>();
            
